@@ -1,18 +1,17 @@
 <template>
     <div>
-        <h2>Get all users</h2>
         <h4>จำนวนผู้ใช้งาน {{users.length}}</h4>
-        <p><button v-on:click="navigateTo('/user/create')">สร้างผู้ใช้งาน</button></p>
+        <p><button class="btn btn-outline-success" v-on:click="navigateTo('/user/create')">สร้างผู้ใช้งาน</button></p>
 
         <div v-for="user in users" v-bind:key="user.id">
             <p>id: {{ user.id }}</p>
             <p>ชื่อ-นามสกุล : {{ user.name }} - {{ user.lastname }}</p>
             <p>email: {{ user.email }}</p>
             <p>password: {{ user.password }}</p>
-                <button v-on:click="navigateTo('/user/'+user.id)">ดูข้อมูล</button>
-                <button v-on:click="navigateTo('/user/edit/'+ user.id)">แก้ไขข้อมูล</button>
-                <button v-on:click="deleteUser(user)">ลบข้อมูล</button>
-                <p><button v-on:click="logout">Logout</button></p>
+                <button class="btn btn-outline-info" v-on:click="navigateTo('/user/'+user.id)">ดูข้อมูล</button>
+                <button class="btn btn-outline-warning" v-on:click="navigateTo('/user/edit/'+ user.id)">แก้ไขข้อมูล</button>
+                <button class="btn btn-outline-danger" v-on:click="deleteUser(user)">ลบข้อมูล</button>
+                <button class="btn btn-outline-dark" v-on:click="logout">Logout</button>
             <hr>
         </div>
     </div>
@@ -55,4 +54,5 @@
     }
 </script>
 <style scoped>
+
 </style>

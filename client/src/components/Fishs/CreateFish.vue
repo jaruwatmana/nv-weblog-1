@@ -1,30 +1,30 @@
 <template>
   <div class="container blog-wrapper">
     <main-header navsel="back"></main-header>
-    <h1>สร้างproduct</h1>
-    <form v-on:submit.prevent = "createproduct">
+    <h1>สร้างfish</h1>
+    <form v-on:submit.prevent = "createfish">
       <p>
         <label class="control-label">ชื่อปลา: </label>
-        <input type="text" v-model="product.name" class="form-control">        
+        <input type="text" v-model="fish.namefish" class="form-control">        
       </p>
       <p>
         <label class="control-label">ประเภทปลา :</label>
-        <input type="text" v-model="product.taste" class="form-control">
+        <input type="text" v-model="fish.typefish" class="form-control">
       </p>
       <p>
         <label class="control-label">price :</label>
-        <input type="text" v-model="product.price" class="form-control">
+        <input type="text" v-model="fish.price" class="form-control">
       </p>
       <p>
         <label class="control-label">สถานะ :</label>
-        <input type="text" v-model="product.status" class="form-control">
+        <input type="text" v-model="fish.status" class="form-control">
       </p>
       <p>
         รูปสินค้า 
       </p>
       <transition name="fade">
-        <div class="thumbnail-pic" v-if="product.thumbnail != 'null'">
-          <img class="img-thumbnail" :src="BASE_URL+product.thumbnail" alt="thumbnail">
+        <div class="thumbnail-pic" v-if="fish.thumbnail != 'null'">
+          <img class="img-thumbnail" :src="BASE_URL+fish.thumbnail" alt="thumbnail">
         </div>
       </transition>
       <form enctype="multipart/form-data" novalidate>
@@ -56,15 +56,15 @@
       </div>  
        
       <p>
-        <button class="btn btn-success" type="submit">สร้างProduct</button>
-        <button class="btn btn-default" type="button" v-on:click="navigateTo('/products')">กลับ</button>
+        <button class="btn btn-success" type="submit">สร้างfish</button>
+        <button class="btn btn-default" type="button" v-on:click="navigateTo('/fishs')">กลับ</button>
       </p> 
     </form>   
     <br>    
   </div>
 </template>
 <script>
-import ProductService from '@/services/ProductService'
+import FishService from '@/services/FishService'
 import VueCkeditor from "vue-ckeditor2"
 import UploadService from '@/services/UploadService'
 import {mapState} from 'vuex'
@@ -82,9 +82,9 @@ export default {
   },
   data () {
     return {
-      product: {
-        name: '',
-        tast :'',
+      fish: {
+        namefish: '',
+        typefish :'',
         thumbnail: 'null',
         pictures: [],
         price : '',
@@ -113,7 +113,7 @@ export default {
     },
     useThumbnail (filename) {     
       console.log(filename) 
-      this.product.thumbnail = filename
+      this.fish.thumbnail = filename
     },
     async delFile (material){
       let result = confirm("Want to delete?")
@@ -188,12 +188,12 @@ export default {
     clearUploadResult: function(){            
       setTimeout(() => this.reset(), 5000);
     },
-    async createproduct () {
-      this.product.pictures = JSON.stringify(this.pictures)
+    async createfish () {
+      this.fish.pictures = JSON.stringify(this.pictures)
       try {
-        await ProductService.post(this.product)
+        await FishService.post(this.fish)
         this.$router.push({
-          name: 'products'
+          name: 'fishs'
         })
       } catch (err) {
         console.log(err)

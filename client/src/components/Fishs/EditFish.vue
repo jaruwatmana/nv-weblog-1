@@ -1,29 +1,29 @@
 <template>
     <div>
-        <h1>Edit product</h1>
-        <form v-on:submit.prevent = "editproduct">
-            <p>ชื่อปลา: <input type="text" v-model="product.name"></p>
-            <p>ประเภทปลา: <input type="text" v-model="product.taste"></p>
-            <p>price: <input type="text" v-model="product.price"></p>
-            <p>status: <input type="text" v-model="product.status"></p>
+        <h1>Edit fish</h1>
+        <form v-on:submit.prevent = "editfish">
+            <p>namefish: <input type="text" v-model="fish.namefish"></p>
+            <p>typefish: <input type="text" v-model="fish.typefish"></p>
+            <p>price: <input type="text" v-model="fish.price"></p>
+            <p>status: <input type="text" v-model="fish.status"></p>
             <p>
-            <button class="btn btn-outline-secondary" type="submit">update product</button>
-            <button class="btn btn-outline-primary" v-on:click="navigateTo('/products')">กลับ</button>
+            <button type="submit">update fish</button>
+            <button v-on:click="navigateTo('/fishs')">กลับ</button>
             </p>
         </form>
     </div>
 </template>
 <script>
-import ProductService from '@/services/ProductService'
+import FishService from '@/services/FishService'
 import VueCkeditor from "vue-ckeditor2"
 
 export default {
     components: { VueCkeditor },
     data () {
         return {
-            product: {
-                name: '',
-                tast : '',
+            fish: {
+                namefish: '',
+                typefish : '',
                 thumbnail: 'null',
                 pictures: 'null',
                 price: '',
@@ -38,11 +38,11 @@ export default {
         }
     },
     methods: {
-        async editproduct () {
+        async editfish () {
             try {
-                await ProductService.put(this.product)
+                await FishService.put(this.fish)
                 this.$router.push({
-                    name: 'products'
+                    name: 'fishs'
                 })
             } catch (err) {
                 console.log(err)
@@ -52,8 +52,8 @@ export default {
     },
     async created () {
         try {
-            let productId = this.$route.params.productId
-            this.product = (await ProductService.show(productId)).data
+            let fishId = this.$route.params.fishId
+            this.fish = (await FishService.show(fishId)).data
             this.config.toolbar = [
                 {
                     name: "document",

@@ -2,8 +2,8 @@
     <div>
         <div class="nv-navbar">
             <ul class="nav">
-                <li><router-link :to="{name: 'products'}" >Products</router-link></li>
-                <li><router-link :to="{name: 'users'}" >Users</router-link></li>
+                <li><router-link :to="{name: 'products'}" >รายการปลา</router-link></li>
+                <li><router-link :to="{name: 'users'}" >ผู้ใช้</router-link></li>
                 <li><router-link :to="{name: 'login'}" >Login</router-link></li>
                 <li><a v-on:click.prevent="logout" href="#">Logout</a></li>
             </ul>
@@ -26,7 +26,7 @@ export default {
 </script>
 <style scoped>
     .nv-navbar {
-        background-color:palegoldenrod;
+        background-color:royalblue;
         width: 100%;
         padding:10px 0px 10px 0px;
     }
@@ -42,7 +42,7 @@ export default {
     .nv-navbar .nav li a {
         padding: 10px;
         text-decoration: none;
-        color:gray;
+        color:rgb(101, 255, 147);
         font-weight: bold;
     }
     .nv-navbar .nav li a:hover {

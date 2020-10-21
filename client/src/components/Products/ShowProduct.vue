@@ -1,15 +1,13 @@
 <template>
     <div>
-        <h1>Show Blog</h1>
+        <h1>รายละเอียดปลา</h1>
         <p>id: {{ product.id }}</p>
-        <p>name: {{ product.name }}</p>
-        <p>taste: {{ product.taste }}</p>
+        <p>ชื่อปลา: {{ product.name }}</p>
+        <p>ประเภท: {{ product.taste }}</p>
         <p>price: {{ product.price }}</p>
         <p>status: {{ product.status }}</p>
         <p>
-        <button v-on:click="navigateTo('/product/edit/'+ product.id)">แก้ไข
-        blog</button>
-        <button v-on:click="navigateTo('/products')">กลับ </button>
+        <button class="btn btn-outline-primary" v-on:click="navigateTo('/products')">กลับ </button>
         </p>
     </div>
 </template>
@@ -37,4 +35,5 @@
     }
 </script>
 <style scoped>
+
 </style>

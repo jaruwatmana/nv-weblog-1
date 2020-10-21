@@ -1,5 +1,5 @@
 <template>
-    <div class="bg">
+    <div>
         <div class="blog-header">
  <h2>ส่วนจัดการสินค้า</h2>
  <div>
@@ -8,35 +8,35 @@
  </form>
 </div>
  <div>
- <button class="btn btn-outline-success" v-on:click="navigateTo('/product/create')">create
-รายการ</button>
- <strong> จํานวนปลา: </strong> {{products.length}}</div>
+ <button v-on:click="navigateTo('/fish/create')">create
+fish</button>
+ <strong> จํานวน fish: </strong> {{fishs.length}}</div>
  <br>
  </div>
 
- <div v-if="products.length === 0" class="empty-blog">
+ <div v-if="fishs.length === 0" class="empty-blog">
  *** ไม่มีข้อมูล***
  </div>
 
- <div v-for="product in products" v-bind:key="product.id" class="blog-list">
+ <div v-for="fish in fishs" v-bind:key="fish.id" class="blog-list">
  <!-- <p>id: {{ blog.id }}</p> -->
  <div class="blog-pic">
  <transition name="fade">
- <div class="thumbnail-pic" v-if="product.thumbnail != 'null'">
- <img :src="BASE_URL+product.thumbnail" alt="thumbnail">
+ <div class="thumbnail-pic" v-if="fsih.thumbnail != 'null'">
+ <img :src="BASE_URL+fsih.thumbnail" alt="thumbnail">
  </div>
  </transition>
  </div>
 
- <h3>{{ product.name }}</h3>
- <p><strong>ประเภท:</strong> {{ product.taste }}</p>
- <p><strong>status:</strong> {{ product.status }}</p>
- <p><strong>Create:</strong> {{ product.createdAt }}</p>
+ <h3>{{ fsih.namefish }}</h3>
+ <p><strong>typefish:</strong> {{ fsih.type }}</p>
+ <p><strong>status:</strong> {{ fsih.status }}</p>
+ <p><strong>Create:</strong> {{ fsih.createdAt }}</p>
  <!-- <p>status: {{ blog.status }}</p> -->
  <p>
- <button class="btn btn-outline-primary" v-on:click="navigateTo('/product/'+ product.id)">ดูข้อมูลปลา</button>
- <button class="btn btn-outline-warning" v-on:click="navigateTo('/product/edit/'+ product.id)">แก้ไข blog</button>
- <button class="btn btn-outline-danger" v-on:click="deleteBlog(product)">ลบข้อมูล</button>
+ <button class="btn btn-outline-primary" v-on:click="navigateTo('/fsih/'+ fsih.id)">ดู blog</button>
+ <button v-on:click="navigateTo('/fsih/edit/'+ fsih.id)">แกไข้ blog</button>
+ <button v-on:click="deleteBlog(fsih)">ลบข้อมูล</button>
  </p>
  </div>
 
@@ -45,7 +45,7 @@
 
 </template>
 <script>
-    import ProductService from '@/services/ProductService'
+    import FishService from '@/services/FishService'
     import _ from 'lodash'
     export default {
         data () {
@@ -60,7 +60,7 @@
         watch: {
                 search: _.debounce(async function (value) {
                 const route = {
-                    name: 'products'
+                    name: 'fishs'
                 }
                 if(this.search !== '') {
                     route.query = {
@@ -75,12 +75,12 @@
                 '$route.query.search': {
                     immediate: true,
                     async handler (value) {
-                        this.products = (await ProductService.index(value)).data
+                        this.fishs = (await FishService.index(value)).data
                     }
                 }
             },
         async created () {
-            this.products = (await ProductService.index()).data
+            this.fishs = (await FishService.index()).data
         },
         methods: {
             logout () {
@@ -93,11 +93,11 @@
             navigateTo (route) {
                 this.$router.push(route)
             },
-            async deleteBlog (product) {
+            async deleteBlog (fish) {
                 let result = confirm("Want to delete?")
                 if (result) {
                     try {
-                        await ProductService.delete(product)
+                        await FishService.delete(fish)
                         this.refreshData()
                     } catch (err) {
                         console.log(err)
@@ -105,7 +105,7 @@
                 }
             },
             async refreshData() {
-                this.products = (await ProductService.index()).data
+                this.fishs = (await FishService.index()).data
             }
         }
     }
@@ -117,16 +117,6 @@
  padding:10px;
  background:darksalmon;
  color:white;
-}
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
 }
 /* thumbnail */
 .thumbnail-pic img{
@@ -143,7 +133,6 @@
  clear: both;
 }
 .blog-list {
-    background-color: snow;
  border:solid 1px #dfdfdf;
  margin-bottom: 10px;
  max-width: 900px;
@@ -156,8 +145,5 @@
  max-width: 900px;
  margin-left: auto;
  margin-right: auto;
-}
-.bg{
-    background-color: skyblue;
 }
 </style>
